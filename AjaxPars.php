@@ -2,9 +2,9 @@
 
 /**
  * AjaxPars
- * release 1.1.4
+ * release 1.2.5
  */
-namespace libs;
+namespace Indeximstudio\AjaxPars;
 
 if (!defined('MODX_BASE_PATH')) {
     die('What are you doing? Get out of here!');
@@ -48,7 +48,7 @@ abstract class AjaxPars
     abstract function getCountIterations();
 
     /**
-     * выполнение действий С полученными данными
+     * Выполнение действий С полученными данными
      * @return string
      */
     abstract function getAction();
@@ -81,7 +81,7 @@ abstract class AjaxPars
         if ($this->countIterations > 0) {
             $_SESSION['parsing'][$this->id]['tekyshiy'] = $_SESSION['parsing'][$this->id]['tekyshiy'] + 1;
             $_SESSION['parsing'][$this->id]['procent'] = $_SESSION['parsing'][$this->id]['tekyshiy'] * 100 / $this->countIterations;
-            $value = number_format($_SESSION['parsing'][$this->id]['procent'], 2, '.', '');;
+            $value = number_format($_SESSION['parsing'][$this->id]['procent'], 2, '.', '');
         } else {
             $value = 100;
         }
@@ -103,7 +103,7 @@ abstract class AjaxPars
             $ostalos_time_min = '';
         } else {
             if (count($_SESSION['parsing'][$this->id]['time']) > 5) {
-                $_SESSION['time'] = array();
+                $_SESSION['parsing'][$this->id]['time'] = array();
             }
             $time_stop = microtime(TRUE);
             $time = $time_stop - $time_start;
@@ -114,7 +114,7 @@ abstract class AjaxPars
                 $sr = array_sum($_SESSION['parsing'][$this->id]['time']) / count($_SESSION['parsing'][$this->id]['time']);
             }
 
-            $ostalos_time = ($ostalos * $sr) / $this->flow;;
+            $ostalos_time = ($ostalos * $sr) / $this->flow;
             $ostalos_time_min = sprintf('%02d:%02d:%02d', $ostalos_time / 3600, ($ostalos_time % 3600) / 60, ($ostalos_time % 3600) % 60);
         }
         $_SESSION['parsing'][$this->id]['start'] = microtime(true);
